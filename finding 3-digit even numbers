@@ -1,0 +1,43 @@
+import java.util.ArrayList;
+import java.util.List;
+
+class Solution {
+    public int[] findEvenNumbers(int[] digits) {
+        int[] counts = new int[10];
+        for (int digit : digits) {
+            counts[digit]++;
+        }
+
+        List<Integer> result = new ArrayList<>();
+
+        for (int num = 100; num <= 998; num += 2) {
+            int hundreds = num / 100;
+            int tens = (num / 10) % 10;
+            int ones = num % 10;
+
+            int[] required = new int[10];
+            required[hundreds]++;
+            required[tens]++;
+            required[ones]++;
+
+            boolean canForm = true;
+            for (int d = 0; d < 10; d++) {
+                if (required[d] > counts[d]) {
+                    canForm = false;
+                    break;
+                }
+            }
+
+            if (canForm) {
+                result.add(num);
+            }
+        }
+
+        int[] finalArray = new int[result.size()];
+        for (int i = 0; i < result.size(); i++) {
+            finalArray[i] = result.get(i);
+        }
+
+        return finalArray;
+    }
+}
