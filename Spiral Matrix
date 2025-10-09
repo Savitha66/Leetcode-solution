@@ -1,0 +1,47 @@
+import java.util.ArrayList;
+import java.util.List;
+
+class Solution {
+    public List<Integer> spiralOrder(int[][] matrix) {
+        List<Integer> result = new ArrayList<>();
+        
+        if (matrix == null || matrix.length == 0 || matrix[0].length == 0) {
+            return result;
+        }
+
+        int top = 0;
+        int bottom = matrix.length - 1;
+        int left = 0;
+        int right = matrix[0].length - 1;
+        
+        int totalElements = matrix.length * matrix[0].length;
+
+        while (result.size() < totalElements) {
+            // 1. Traverse Right (Across the top row)
+            for (int c = left; c <= right && result.size() < totalElements; c++) {
+                result.add(matrix[top][c]);
+            }
+            top++;
+
+            // 2. Traverse Down (Down the right column)
+            for (int r = top; r <= bottom && result.size() < totalElements; r++) {
+                result.add(matrix[r][right]);
+            }
+            right--;
+
+            // 3. Traverse Left (Across the bottom row)
+            for (int c = right; c >= left && result.size() < totalElements; c--) {
+                result.add(matrix[bottom][c]);
+            }
+            bottom--;
+
+            // 4. Traverse Up (Up the left column)
+            for (int r = bottom; r >= top && result.size() < totalElements; r--) {
+                result.add(matrix[r][left]);
+            }
+            left++;
+        }
+
+        return result;
+    }
+}
